@@ -1,0 +1,29 @@
+<div ng-app="RepoListCtrl">
+    <div>
+        <div class="sort">
+            Sort by id: <input ng-model="query">
+        </div>
+        <ol class="repo">
+            <li ng-repeat="repository in repositories | filter:query">
+                <p>
+
+                <div ng-click="showMenu = !showMenu">{{repository.id}}</div><input type="checkbox" ng-model="repo.add">
+                <button class="addRmv" ng-click="addRepo(repository)">Add/Remove Favorite</button>
+                <!--  <input type="checkbox" ng-change="toggleRepo(repository.id)"> -->
+
+                <div ng-show="showMenu">
+                    <p>{{repository.owner.login}}</p>
+                    <img ng-src="{{repository.owner.avatar_url}}"/>
+
+                    <a href="#/detailed/{{repository.full_name}}"><p>{{repository.name}}</p></a>
+
+                    <p>{{repository.full_name}}</p>
+
+                    <p>{{repository.description}}</p>
+                </div>
+
+            </li>
+        </ol>
+
+    </div>
+</div>
