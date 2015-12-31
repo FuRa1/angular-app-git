@@ -1,10 +1,6 @@
 .select:hover{
     background-color: #62c462;
 }
-.item{
-    padding: 1%;
-    width: 50%;
-}
 .item img{
     width: 50px;
 }
@@ -15,5 +11,21 @@
 .fav-true {
     font-weight:500;
     color: #803f7e;
+}
+body {
+    padding-top: 50px;
+}
+.starter-template {
+    padding: 40px 15px;
+    text-align: center;
+}
+.sort{
+    margin: 2%;
+    position: relative;
+}
+#contact{
+    margin: 4%;
+    text-decoration: none;
+    font-size: 17px;
 }
 

@@ -8,15 +8,29 @@ gitAppControllers.controller('RepoListCtrl', ['$scope', '$http', '$localStorage'
         console.log(data);
         $scope.repositories = data;
     });
-    if(!_.isArray($localStorage.list)){
-        $localStorage.list =[];
+    if (!_.isArray($localStorage.list)) {
+        $localStorage.list = [];
         console.log($localStorage.list);
     }
     $scope.addRepo = function (repo) {
-        $localStorage.list.push(repo);
+        var repoId = "id:"+repo.id;
+        var reposf = {};
+        _.defaultsDeep(repo, reposf);
+        console.log(reposf);
+        console.log(_.get($localStorage.list, 'id', repoId));
+        if (!_.has($localStorage, repoId)) {
+            $localStorage.list.push(repo);
+        }
         console.log($localStorage.list);
+    }
+    //    $localStorage.list.push(repo);
 
-     }
+
+    /*
+     angular.forEach($scope.repositories, function(repository) {
+     if (repo.add) $localStorage.list.push(repository);
+     });
+     */
 }]);
 
 gitAppControllers.controller('RepoDetailCtrl', ['$scope', '$routeParams', '$http', function ($scope, $routeParams, $http) {
@@ -25,8 +39,6 @@ gitAppControllers.controller('RepoDetailCtrl', ['$scope', '$routeParams', '$http
     });
 }]);
 gitAppControllers.controller('RepoFavoriteCtrl', ['$scope', '$localStorage', function ($scope, $localStorage) {
-    console.log($localStorage.list);
-    $scope.favorits = $localStorage.list;
-    console.log($scope.favorits);
+    $scope.repositories = $localStorage.list;
 }
 ]);

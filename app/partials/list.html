@@ -7,9 +7,8 @@
             <li ng-repeat="repository in repositories | filter:query">
                 <p>
 
-                <div ng-click="showMenu = !showMenu">{{repository.id}}</div><input type="checkbox" ng-model="repo.add">
+                <div ng-click="showMenu = !showMenu">{{repository.id}}</div>  <!--  <input type="checkbox" ng-model="repo.add"> <input type="checkbox" ng-change="toggleRepo(repository.id)"> -->
                 <button class="addRmv" ng-click="addRepo(repository)">Add/Remove Favorite</button>
-                <!--  <input type="checkbox" ng-change="toggleRepo(repository.id)"> -->
 
                 <div ng-show="showMenu">
                     <p>{{repository.owner.login}}</p>
