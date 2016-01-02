@@ -1,14 +1,24 @@
 <div ng-app="RepoListCtrl">
     <div>
-        <div class="sort">
-            Sort by id: <input ng-model="query">
-        </div>
-        <ol class="repo">
-            <li ng-repeat="repository in repositories | filter:query">
-                <p>
+        <div class="head">
+            <table>
+                <tr>
+                    <td class="headTd">
+                        User: <input ng-model="user" type="text" value="{{$localStorage.currentUser}}">
+                    </td>
 
-                <div ng-click="showMenu = !showMenu">{{repository.id}}</div>  <!--  <input type="checkbox" ng-model="repo.add"> <input type="checkbox" ng-change="toggleRepo(repository.id)"> -->
-                <button class="addRmv" ng-click="addRepo(repository)">Add/Remove Favorite</button>
+                    <td class="headTd">
+                        <button class="getUser" ng-click="getRepositories()">Get</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <ol class="repo">
+            <li ng-repeat="repository in repositories">
+                <div ng-click="showMenu = !showMenu">{{repository.id}}</div>
+         <!--       <label><input type="checkbox"/>favorite</label> -->
+                <button class="addRmv" ng-click="addRepo(repository)">Favorite</button>
 
                 <div ng-show="showMenu">
                     <p>{{repository.owner.login}}</p>

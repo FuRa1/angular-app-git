@@ -4,33 +4,41 @@
 var gitAppControllers = angular.module('gitAppControllers', []);
 
 gitAppControllers.controller('RepoListCtrl', ['$scope', '$http', '$localStorage', function ($scope, $http, $localStorage) {
-    $http.get('https://api.github.com/users/fura1/repos').success(function (data) {
-        console.log(data);
-        $scope.repositories = data;
-    });
-    if (!_.isArray($localStorage.list)) {
-        $localStorage.list = [];
-        console.log($localStorage.list);
+
+    $scope.getRepositories = function () {
+        $http.get('https://api.github.com/users/' + $scope.user + '/repos').success(function (data) {
+            $localStorage.currentUser = $scope.user;
+            $localStorage.repositories = data;
+            $scope.repositories = data;
+        });
+    };
+    $scope.repositories = $localStorage.repositories;
+
+    if (!_.isArray($localStorage.favoriteRepositories)) {
+        $localStorage.favoriteRepositories = [];
     }
+
     $scope.addRepo = function (repo) {
-        var repoId = "id:"+repo.id;
-        var reposf = {};
-        _.defaultsDeep(repo, reposf);
-        console.log(reposf);
-        console.log(_.get($localStorage.list, 'id', repoId));
-        if (!_.has($localStorage, repoId)) {
-            $localStorage.list.push(repo);
+        if ($localStorage.favoriteRepositories.length == 0) {
+            $localStorage.favoriteRepositories.push(repo);
+            console.log(repo.id+" added");
+        } else {
+            for (var i = $localStorage.favoriteRepositories.length - 1; i >= 0; i--) {
+                if ($localStorage.favoriteRepositories[i].id == repo.id) {
+                    $localStorage.favoriteRepositories.splice(i, 1);
+                    console.log(repo.id+" deleted");
+                    break;
+                } else {
+                    $localStorage.favoriteRepositories.push(repo);
+                    console.log(repo.id+" added");
+                    break;
+                }
+
+            }
         }
-        console.log($localStorage.list);
-    }
-    //    $localStorage.list.push(repo);
 
+    };
 
-    /*
-     angular.forEach($scope.repositories, function(repository) {
-     if (repo.add) $localStorage.list.push(repository);
-     });
-     */
 }]);
 
 gitAppControllers.controller('RepoDetailCtrl', ['$scope', '$routeParams', '$http', function ($scope, $routeParams, $http) {
@@ -39,6 +47,7 @@ gitAppControllers.controller('RepoDetailCtrl', ['$scope', '$routeParams', '$http
     });
 }]);
 gitAppControllers.controller('RepoFavoriteCtrl', ['$scope', '$localStorage', function ($scope, $localStorage) {
-    $scope.repositories = $localStorage.list;
+    $scope.repositories = $localStorage.favoriteRepositories;
+    console.log($scope.repositories);
 }
 ]);

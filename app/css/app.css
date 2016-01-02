@@ -1,29 +1,36 @@
-.select:hover{
+.select:hover {
     background-color: #62c462;
 }
-.item img{
+
+.item img {
     width: 50px;
 }
-.repoId:hover{
+
+.repoId:hover {
     font-weight: 700;
     cursor: pointer;
 }
+
 .fav-true {
-    font-weight:500;
+    font-weight: 500;
     color: #803f7e;
 }
+
 body {
     padding-top: 50px;
 }
+
 .starter-template {
     padding: 40px 15px;
     text-align: center;
 }
-.sort{
+
+.head {
     margin: 2%;
     position: relative;
 }
-#contact{
+
+#contact {
     margin: 4%;
     text-decoration: none;
     font-size: 17px;
