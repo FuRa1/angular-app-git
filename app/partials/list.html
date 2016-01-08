@@ -4,7 +4,7 @@
             <table>
                 <tr>
                     <td class="headTd">
-                        User: <input ng-model="user" type="text" value="{{$localStorage.currentUser}}">
+                        Author: <input ng-model="user" type="text" value="{{$localStorage.currentUser}}">
                     </td>
 
                     <td class="headTd">
@@ -16,12 +16,17 @@
 
         <ol class="repo">
             <li ng-repeat="repository in repositories">
-                <div ng-click="showMenu = !showMenu">{{repository.id}}</div>
-         <!--       <label><input type="checkbox"/>favorite</label> -->
-                <button class="addRmv" ng-click="addRepo(repository)">Favorite</button>
+                <div>
+                    <div class="inline"><h1 class="owner">{{repository.owner.login}}</h1></div>
 
-                <div ng-show="showMenu">
-                    <p>{{repository.owner.login}}</p>
+                    <div class="inline">/</div>
+                    <div class="inline"><strong class="repo-name"
+                                                ng-click="showMenu = !showMenu">{{repository.name}}</strong></div>
+                </div>
+                <!--       <label><input type="checkbox"/>favorite</label> -->
+
+                <div class="basic-data" ng-show="showMenu">
+                    <hr>
                     <img ng-src="{{repository.owner.avatar_url}}"/>
 
                     <a href="#/detailed/{{repository.full_name}}"><p>{{repository.name}}</p></a>
@@ -29,6 +34,7 @@
                     <p>{{repository.full_name}}</p>
 
                     <p>{{repository.description}}</p>
+                    <button class="addRmv inline" ng-click="addRepo(repository)">Favorite</button>
                 </div>
 
             </li>

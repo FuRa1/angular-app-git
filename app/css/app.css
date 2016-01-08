@@ -2,8 +2,8 @@
     background-color: #62c462;
 }
 
-.item img {
-    width: 50px;
+.basic-data img {
+    width: 100px;
 }
 
 .repoId:hover {
@@ -34,5 +34,15 @@ body {
     margin: 4%;
     text-decoration: none;
     font-size: 17px;
+}
+.inline{
+    display: inline-block;
+}
+.owner{
+    font-size: 18px;
+}
+.repo-name:hover{
+    text-decoration: underline;
+    cursor: pointer;
 }
 

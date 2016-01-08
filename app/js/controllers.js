@@ -10,7 +10,9 @@ gitAppControllers.controller('RepoListCtrl', ['$scope', '$http', '$localStorage'
             $localStorage.currentUser = $scope.user;
             $localStorage.repositories = data;
             $scope.repositories = data;
+            console.log(data);
         });
+
     };
     $scope.repositories = $localStorage.repositories;
 
@@ -21,16 +23,16 @@ gitAppControllers.controller('RepoListCtrl', ['$scope', '$http', '$localStorage'
     $scope.addRepo = function (repo) {
         if ($localStorage.favoriteRepositories.length == 0) {
             $localStorage.favoriteRepositories.push(repo);
-            console.log(repo.id+" added");
+            console.log(repo.id + " added");
         } else {
             for (var i = $localStorage.favoriteRepositories.length - 1; i >= 0; i--) {
                 if ($localStorage.favoriteRepositories[i].id == repo.id) {
                     $localStorage.favoriteRepositories.splice(i, 1);
-                    console.log(repo.id+" deleted");
+                    console.log(repo.id + " deleted");
                     break;
-                } else {
+                } else if (i == $localStorage.favoriteRepositories.length - 1) {
                     $localStorage.favoriteRepositories.push(repo);
-                    console.log(repo.id+" added");
+                    console.log(repo.id + " added");
                     break;
                 }
 
@@ -38,7 +40,7 @@ gitAppControllers.controller('RepoListCtrl', ['$scope', '$http', '$localStorage'
         }
 
     };
-
+    console.log($localStorage);
 }]);
 
 gitAppControllers.controller('RepoDetailCtrl', ['$scope', '$routeParams', '$http', function ($scope, $routeParams, $http) {
@@ -48,6 +50,5 @@ gitAppControllers.controller('RepoDetailCtrl', ['$scope', '$routeParams', '$http
 }]);
 gitAppControllers.controller('RepoFavoriteCtrl', ['$scope', '$localStorage', function ($scope, $localStorage) {
     $scope.repositories = $localStorage.favoriteRepositories;
-    console.log($scope.repositories);
 }
 ]);
