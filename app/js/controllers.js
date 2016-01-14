@@ -3,11 +3,12 @@
 /* Controllers */
 var gitAppControllers = angular.module('gitAppControllers', []);
 
-gitAppControllers.controller('RepoListCtrl', ['$scope', '$http', '$localStorage', '$rootScope', function ($scope, $http, $localStorage, $rootScope) {
+gitAppControllers.controller('RepoListCtrl', ['$scope', '$http', '$localStorage', '$rootScope', function ($scope, $http, $localStorage, $rootScope, $timeout, $stateParams) {
     console.log($rootScope);
     $scope.getRepositories = function (code) {
         console.log(code);
         if (code == 13) {
+            console.log(code);
             $http.get('https://api.github.com/users/' + $scope.user + '/repos').success(function (data) {
                 $localStorage.currentUser = $scope.user;
                 $localStorage.repositories = data;
@@ -59,11 +60,12 @@ gitAppControllers.controller('RepoListCtrl', ['$scope', '$http', '$localStorage'
 ])
 ;
 
-gitAppControllers.controller('RepoDetailCtrl', ['$scope', '$routeParams', '$http', function ($scope, $routeParams, $http) {
-    $http.get('https://api.github.com/repos/' + $routeParams.user + "/" + $routeParams.repo).success(function (data) {
+gitAppControllers.controller('RepoDetailCtrl', ['$scope', '$stateParams', '$http', function ($scope, $stateParams, $http) {
+    $http.get('https://api.github.com/repos/' +$stateParams.user + "/" + $stateParams.repo).success(function (data) {
         $scope.repository = data;
     });
 }]);
+
 gitAppControllers.controller('RepoFavoriteCtrl', ['$scope', '$localStorage', function ($scope, $localStorage) {
     $scope.repositories = $localStorage.favoriteRepositories;
     $scope.rmvRepo = function (repo) {

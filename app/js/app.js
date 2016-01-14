@@ -1,29 +1,33 @@
 'use strict';
 var gitApp = angular.module('gitApp', [
     'ngStorage',
-    'ngRoute',
+    'ui.router',
     'gitAppControllers'
 ]);
+'use strict';
+gitApp.config(function ($stateProvider, $urlRouterProvider) {
 
+    $stateProvider
+        .state('repos', {
+            url: "/repos",
+            templateUrl: "partials/list.html",
+            controller: 'RepoListCtrl'
+        })
+        .state('detailed', {
+            url: "/detailed/:user/:repo",
+            templateUrl: "partials/detail.html",
+            controller: 'RepoDetailCtrl'
+        })
 
-gitApp.config(['$routeProvider',
-      function($routeProvider) {
-        $routeProvider.
-            when('/repos', {
-              templateUrl: 'partials/list.html',
-              controller: 'RepoListCtrl'}).
-            when('/detailed/:user/:repo', {
-              templateUrl: 'partials/detail.html',
-              controller: 'RepoDetailCtrl'
-            }).
-            when('/favorits', {
-                templateUrl: 'partials/fav-list.html',
-                controller: 'RepoFavoriteCtrl'
-            }).
-            when('/contact', {
-                templateUrl: 'partials/contact.html',
-            }).
-            otherwise({
-              redirectTo: '/repos'
-            });
-      }]);
+        .state('favorits', {
+            url: "/favorits",
+            templateUrl: "partials/fav-list.html",
+            controller: 'RepoFavoriteCtrl'
+        })
+        .state('contact', {
+            url: "/contact",
+            templateUrl: "partials/contact.html"
+        })
+
+    $urlRouterProvider.otherwise('/repos');
+});
