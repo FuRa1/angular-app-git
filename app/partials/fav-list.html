@@ -1,29 +1,26 @@
 <div ng-app="RepoFavoriteCtrl">
-    <div>
-        <ol class="repo">
-            <li ng-repeat="repository in repositories">
+    <div class="container">
+        <ul class="repo list-group">
+            <li class="list-group-item" ng-repeat="repository in repositories">
                 <div>
                     <div class="inline"><h1 class="owner">{{repository.owner.login}}</h1></div>
 
                     <div class="inline">/</div>
-                    <div class="inline"><strong class="repo-name" ng-click="showMenu = !showMenu">{{repository.name}}</strong></div>
+                    <div class="inline"><strong class="repo-name"
+                                                ng-click="showMenu = !showMenu">{{repository.name}}</strong></div>
                 </div>
-                <!--       <label><input type="checkbox"/>favorite</label> -->
-
                 <div class="basic-data" ng-show="showMenu">
-                    <hr>
-                    <img ng-src="{{repository.owner.avatar_url}}"/>
 
-                    <a href="#/detailed/{{repository.full_name}}"><p>{{repository.name}}</p></a>
+                    <a href="#/detailed/{{repository.full_name}}"><p>Detailed information</p></a>
 
-                    <p>{{repository.full_name}}</p>
-
-                    <p>{{repository.description}}</p>
-                    <button class="addRmv inline btn btn-default btn-lg" ng-click="rmvRepo(repository)">Remove</button>
+                    <p>Description: {{repository.description}}</p>
+                    <p>Repository id: {{repository.id}}</p>
+                    <a href="{{repository.html_url}}"><p>View on GitHub</p></a>
+                    <button id="{{repository.id}}" class="addRmv inline btn btn-default" ng-click="rmvRepo(repository)">Remove</button>
                 </div>
 
             </li>
-        </ol>
+        </ul>
 
     </div>
 </div>

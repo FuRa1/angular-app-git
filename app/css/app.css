@@ -2,10 +2,12 @@
     background-color: #62c462;
 }
 
-.basic-data img {
+.img-rounded {
     width: 100px;
 }
-
+.basic-data{
+    margin:1%
+}
 .repoId:hover {
     font-weight: 700;
     cursor: pointer;
@@ -28,7 +30,9 @@
     padding: 40px 15px;
     text-align: center;
 }
-
+.addRmv{
+    margin-bottom: 1em;
+}
 .head {
     margin: 2%;
     position: relative;
