@@ -15,9 +15,13 @@
     font-weight: 500;
     color: #803f7e;
 }
-
-body {
-    padding-top: 50px;
+.user-input {
+    transition:all linear 0.5s;
+    background: transparent;
+}
+.user-input.ng-invalid {
+    color:white;
+    background: #ff463c;
 }
 
 .starter-template {

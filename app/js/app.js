@@ -5,6 +5,7 @@ var gitApp = angular.module('gitApp', [
     'gitAppControllers'
 ]);
 
+
 gitApp.config(['$routeProvider',
       function($routeProvider) {
         $routeProvider.
@@ -16,7 +17,7 @@ gitApp.config(['$routeProvider',
               controller: 'RepoDetailCtrl'
             }).
             when('/favorits', {
-                templateUrl: 'partials/list.html',
+                templateUrl: 'partials/fav-list.html',
                 controller: 'RepoFavoriteCtrl'
             }).
             when('/contact', {

@@ -3,18 +3,33 @@
 /* Controllers */
 var gitAppControllers = angular.module('gitAppControllers', []);
 
-gitAppControllers.controller('RepoListCtrl', ['$scope', '$http', '$localStorage', function ($scope, $http, $localStorage) {
+gitAppControllers.controller('RepoListCtrl', ['$scope', '$http', '$localStorage', '$rootScope', function ($scope, $http, $localStorage, $rootScope) {
+    console.log($rootScope);
+    $scope.getRepositories = function (code) {
+        console.log(code);
+        if (code == 13) {
+            $http.get('https://api.github.com/users/' + $scope.user + '/repos').success(function (data) {
+                $localStorage.currentUser = $scope.user;
+                $localStorage.repositories = data;
+                $scope.repositories = data;
+            });
 
-    $scope.getRepositories = function () {
-        $http.get('https://api.github.com/users/' + $scope.user + '/repos').success(function (data) {
-            $localStorage.currentUser = $scope.user;
-            $localStorage.repositories = data;
-            $scope.repositories = data;
-            console.log(data);
-        });
-
+        }
     };
+    var favSize = $("#favSize");
+
+    function counter() {
+        console.log($localStorage);
+        if ($localStorage.favoriteRepositories.length > 0) {
+            favSize.html($localStorage.favoriteRepositories.length);
+        } else {
+            favSize.html("");
+        }
+    }
+
+    $scope.user = $localStorage.currentUser;
     $scope.repositories = $localStorage.repositories;
+
 
     if (!_.isArray($localStorage.favoriteRepositories)) {
         $localStorage.favoriteRepositories = [];
@@ -35,13 +50,14 @@ gitAppControllers.controller('RepoListCtrl', ['$scope', '$http', '$localStorage'
                     console.log(repo.id + " added");
                     break;
                 }
-
             }
         }
-
+        counter();
     };
-    console.log($localStorage);
-}]);
+    counter();
+}
+])
+;
 
 gitAppControllers.controller('RepoDetailCtrl', ['$scope', '$routeParams', '$http', function ($scope, $routeParams, $http) {
     $http.get('https://api.github.com/repos/' + $routeParams.user + "/" + $routeParams.repo).success(function (data) {
@@ -50,5 +66,25 @@ gitAppControllers.controller('RepoDetailCtrl', ['$scope', '$routeParams', '$http
 }]);
 gitAppControllers.controller('RepoFavoriteCtrl', ['$scope', '$localStorage', function ($scope, $localStorage) {
     $scope.repositories = $localStorage.favoriteRepositories;
+    $scope.rmvRepo = function (repo) {
+        for (var i = $localStorage.favoriteRepositories.length - 1; i >= 0; i--) {
+            if ($localStorage.favoriteRepositories[i].id == repo.id) {
+                $localStorage.favoriteRepositories.splice(i, 1);
+                console.log(repo.id + " deleted");
+                counter();
+                break;
+            }
+        }
+    };
+    var favSize = $("#favSize");
+    function counter() {
+        console.log($localStorage);
+        if ($localStorage.favoriteRepositories.length > 0) {
+            favSize.html($localStorage.favoriteRepositories.length);
+        } else {
+            favSize.html("");
+        }
+    }
+
 }
 ]);
