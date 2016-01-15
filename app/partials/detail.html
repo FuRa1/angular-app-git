@@ -1,19 +1,20 @@
 <div class="container-fluid" ng-app="RepoDetailCtrl">
     <div class="basic-data container">
-        <table>
-            <tr>
-                <td>
-                    <p>Repository onwer: {{repository.owner.login}}</p>
-                </td>
-                <td>
-                    <img class="img-rounded" ng-src="{{repository.owner.avatar_url}}"/>
-                </td>
-            </tr>
-        </table>
+
+        <p>Repository onwer: <a href="{{repository.owner.html_url}}">{{repository.owner.login}}</a></p>
+        <img class="img-rounded" ng-src="{{repository.owner.avatar_url}}"/>
+
         <hr>
         <p>Repository name: {{repository.name}}</p>
+
         <p>Description: {{repository.description}}</p>
+
         <p>Created: {{repository.created_at}}</p>
+
         <p>Updated: {{repository.updated_at}}</p>
+
+        <p>Open issues count: {{repository.open_issues_count}} </p>
+
+        <p>Size: {{repository.size}}</p>
     </div>
 </div>
