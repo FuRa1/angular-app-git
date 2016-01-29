@@ -63,20 +63,26 @@
 
             if (favorites.length === 0) {
                 favorites.push(repo);
+
                 console.log("Repository id: "+ id + " ADDED to favorites");
+
             } else {
 
                 for (var i = favorites.length - 1; i >= 0; i--) {
                     if (favorites[i].id === id) {
                         favorites.splice(i, 1);
                         $localStorage.favoriteRepositories = favorites;
+
                         console.log("Repository id: "+ id + " DELETED from favorites");
+
                         break;
                     }
                     if (i === 0) {
                         favorites.push(repo);
                         $localStorage.favoriteRepositories = favorites;
+
                         console.log("Repository id: "+ id + " ADDED to favorites");
+
                         break;
                     }
                 }
@@ -95,36 +101,6 @@
             return repository;
         }
     }
-
-    /*
-     added: function (name) {
-     var ad = this;
-     console.log("services");
-     ad.name = name;
-     ad.before = "\<div class=\"alert alert-success\"> <a href=\"#\" class=\"close fade in\" data-dismiss=\"alert\" aria-label=\"close\">\&times;</a><strong>Added!</strong> Repository ";
-     ad.after = " added to favorite list" + "\</div>";
-     return ad.before + name + ad.after;
-     },
-
-     removed: function (name) {
-     var rmv = this;
-
-     rmv.name = name;
-     rmv.before = "\<div class=\"alert alert-info\"> <a href=\"#\" class=\"close fade in\" data-dismiss=\"alert\" aria-label=\"close\">\&times;</a><strong>Removed!</strong> Repository ";
-     rmv.after = " removed from favorite list" + "\</div>";
-     return rmv.before + name + rmv.after;
-     },
-     counter: function (size) {
-     var favSize = $("#favSize");
-     if (size > 0) {
-     favSize.html(size);
-     } else {
-     favSize.html("");
-     }
-     }
-     }
-     }
-     */
 })
 ()
 

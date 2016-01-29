@@ -5,8 +5,10 @@ module.exports = function(config){
 
         files : [
             './bower_components/angular/angular.min.js',
-            './bower_components/ngstorage/ngStorage.min.js',
             './bower_components/angular-mocks/angular-mocks.js',
+            './bower_components/angular-ui-router/release/angular-ui-router.min.js',
+            './bower_components/ngstorage/ngStorage.min.js',
+            './bower_components/lodash/dist/lodash.min.js',
             './app/js/**/*.js',
             './spec/app.spec.js'
         ],
