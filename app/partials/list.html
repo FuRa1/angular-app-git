@@ -4,7 +4,7 @@
             <tr>
                 <div class="input-group">
                     <span class="input-group-addon" id="basic-addon3">https://github.com/</span>
-                    <input ng-keypress="getRepositories($event.keyCode)" ng-model="user"
+                    <input ng-keypress="getRequest($event)" ng-model="user"
                            ng-pattern="/^([a-zA-Z](?:(?:(?:\w[\.\_]?)*)\w)+)([a-zA-Z0-9])$/" type="text"
                            class="user-input form-control" id="basic-url" aria-describedby="basic-addon3">
                 </div>
@@ -28,7 +28,7 @@
                     <p>Description: {{repository.description}}</p>
                     <p>Repository id: {{repository.id}}</p>
                     <a href="{{repository.html_url}}"><p>View on GitHub</p></a>
-                    <button id="{{repository.id}}" class="addRmv inline btn btn-default" ng-click="addRepo(repository)">Favorite
+                    <button id="{{repository.id}}" class="addRmv inline btn btn-default" ng-click="checkRepo(repository)">Favorite
                     </button>
 
 

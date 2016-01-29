@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="gitApp">
+<head>
+    <title>Angular Git App</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Git App">
+    <meta name="author" content="Git Repositories">
+    <link rel="stylesheet" href="./bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="app/css/app.css">
+    <script src="./bower_components/angular/angular.js"></script>
+    <script src="./bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="./bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="./bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+    <script src="./bower_components/ngstorage/ngStorage.min.js"></script>
+    <script src="./bower_components/lodash/dist/lodash.min.js"></script>
+    <script src="app/js/app.js"></script>
+    <script src="app/js/controllers.js"></script>
+    <script src="app/js/services.js"></script>
+    <script src="app/js/page.js"></script>
+</head>
+
+<body>
+
+
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button id="collapse-button" type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="https://github.com/FuRa1/angular-app-git" class="navbar-brand">Angular-GitHub</a>
+        </div>
+        <div id="nav-collapse" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Home</a></li>
+                <li><a href="#favorits">Favorits <span id="favSize" class="badge"></span></a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div id="content">
+        <div ui-view></div>
+</div>
+
+</body>
+</html>

@@ -16,7 +16,7 @@
                     <p>Description: {{repository.description}}</p>
                     <p>Repository id: {{repository.id}}</p>
                     <a href="{{repository.html_url}}"><p>View on GitHub</p></a>
-                    <button id="{{repository.id}}" class="addRmv inline btn btn-default" ng-click="rmvRepo(repository)">Remove</button>
+                    <button class="addRmv inline btn btn-default" ng-click="checkRepo(repository)">Remove</button>
                 </div>
 
             </li>

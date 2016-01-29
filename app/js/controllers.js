@@ -1,120 +1,71 @@
-'use strict';
+(function () {
+    'use strict';
 
-/* Controllers */
-var gitAppControllers = angular.module('gitAppControllers', []);
+    angular
+        .module('gitAppControllers', [])
+        .controller('RepoListCtrl', RepoListCtrl)
+        .controller('RepoDetailCtrl', RepoDetailCtrl)
+        .controller('RepoFavoriteCtrl', RepoFavoriteCtrl);
 
-gitAppControllers.controller('RepoListCtrl', ['$scope', '$http', '$localStorage', '$rootScope', function ($scope, $http, $localStorage, $rootScope, $timeout, $stateParams) {
-    function AlertAdded(name) {
-        this.name = name;
-        this.before = "\<div class=\"alert alert-success\"> <a href=\"#\" class=\"close fade in\" data-dismiss=\"alert\" aria-label=\"close\">\&times;</a><strong>Added!</strong> Repository ";
-        this.after = " added to favorite list" + "\</div>";
-        this.ansewer = this.before + name + this.after;
-    }
-    function AlertRemoved(name) {
-        this.name = name;
-        this.before = "\<div class=\"alert alert-info\"> <a href=\"#\" class=\"close fade in\" data-dismiss=\"alert\" aria-label=\"close\">\&times;</a><strong>Removed!</strong> Repository ";
-        this.after = " removed from favorite list" + "\</div>";
-        this.ansewer = this.before + name + this.after;
-    }
+    RepoListCtrl.$inject = ['$scope', 'storage'];
+    RepoDetailCtrl.$inject = ['$scope', 'storage', '$stateParams', '$http'];
+    RepoFavoriteCtrl.$inject = ['$scope', 'storage'];
 
-    $scope.getRepositories = function (code) {
-        if (code == 13) {
-            $http.get('https://api.github.com/users/' + $scope.user + '/repos').success(function (data) {
-                $localStorage.currentUser = $scope.user;
-                $localStorage.repositories = data;
-                $scope.repositories = data;
-            });
+    function RepoListCtrl($scope, storage) {
 
+
+        $scope.getRequest = getRequest;
+        $scope.checkRepo = checkRepo;
+        $scope.user = user();
+        $scope.repositories = repositories();
+
+        function user() {
+            return storage.getUser();
         }
-    };
-    var favSize = $("#favSize");
 
-    function counter() {
-        if ($localStorage.favoriteRepositories.length > 0) {
-            favSize.html($localStorage.favoriteRepositories.length);
-        } else {
-            favSize.html("");
+        function repositories() {
+            return storage.getRepositories();
         }
-    }
 
-    $scope.user = $localStorage.currentUser;
-    $scope.repositories = $localStorage.repositories;
-
-
-    if (!_.isArray($localStorage.favoriteRepositories)) {
-        $localStorage.favoriteRepositories = [];
-    }
-
-    $scope.addRepo = function (repo) {
-        var addMsg = new AlertAdded(repo.name);
-        var rmvMsg = new AlertRemoved(repo.name);
-        var id = "#"+repo.id;
-
-        if ($localStorage.favoriteRepositories.length == 0) {
-            $localStorage.favoriteRepositories.push(repo);
-            console.log(repo.id + " added");
-            $(id).after(addMsg.ansewer);
-        } else {
-            for (var i = $localStorage.favoriteRepositories.length - 1; i >= 0; i--) {
-                if ($localStorage.favoriteRepositories[i].id == repo.id) {
-                    $localStorage.favoriteRepositories.splice(i, 1);
-                    console.log(repo.id + " deleted");
-                    $(id).after(rmvMsg.ansewer);
-                    break;
-                } else if (i == $localStorage.favoriteRepositories.length - 1) {
-                    $localStorage.favoriteRepositories.push(repo);
-                    console.log(repo.id + " added");
-                    $(id).after(addMsg.ansewer);
-                    break;
-                }
-            }
+        function checkRepo(repo) {
+            return storage.setFavoriteRepositories(repo)
         }
-        counter();
-    };
-    counter();
-}
-])
-;
 
-gitAppControllers.controller('RepoDetailCtrl', ['$scope', '$localStorage', '$stateParams', '$http', function ($scope, $localStorage, $stateParams, $http) {
-    $http.get('https://api.github.com/repos/' + $stateParams.user + "/" + $stateParams.repo).success(function (data) {
-        $scope.repository = data;
-    });
-    var fullName =  $stateParams.user + "/" + $stateParams.repo;
-    localDetail(fullName);
-    function localDetail(full_Name){
-        for (var i = $localStorage.favoriteRepositories.length - 1; i >= 0; i--) {
-            if ($localStorage.favoriteRepositories[i].full_name == full_Name){
-                $scope.repository = $localStorage.favoriteRepositories[i];
-                console.log("from local");
+        function getRequest(event) {
+
+            if (event.keyCode === 13) {
+
+                storage.httpGetRequest($scope.user)
+
+                    .then(function (data) {
+                        $scope.repositories = data;
+                    }
+                )
             }
         }
     }
-}]);
 
-gitAppControllers.controller('RepoFavoriteCtrl', ['$scope', '$localStorage', function ($scope, $localStorage) {
-    $scope.repositories = $localStorage.favoriteRepositories;
+    function RepoDetailCtrl($scope, storage) {
 
-    $scope.rmvRepo = function (repo) {
-        for (var i = $localStorage.favoriteRepositories.length - 1; i >= 0; i--) {
-            if ($localStorage.favoriteRepositories[i].id == repo.id) {
-                $localStorage.favoriteRepositories.splice(i, 1);
-                console.log(repo.id + " deleted");
-                counter();
-                break;
-            }
-        }
-    };
-    var favSize = $("#favSize");
+        $scope.repository = getDetail();
 
-    function counter() {
-        console.log($localStorage);
-        if ($localStorage.favoriteRepositories.length > 0) {
-            favSize.html($localStorage.favoriteRepositories.length);
-        } else {
-            favSize.html("");
+        function getDetail() {
+            return storage.getDetailRepository()
         }
     }
 
-}
-]);
+    function RepoFavoriteCtrl($scope, storage) {
+
+
+        $scope.checkRepo = markRepo;
+        $scope.repositories = repositories();
+
+        function repositories() {
+            return storage.getFavoriteRepositories()
+        }
+
+        function markRepo(repo) {
+            return storage.setFavoriteRepositories(repo);
+        }
+    }
+})();

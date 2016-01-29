@@ -3,7 +3,8 @@
 }
 
 .img-rounded {
-    width: 100px;
+    width: 50%;
+    padding: 5%;
 }
 .basic-data{
     margin:1%

@@ -1,0 +1,32 @@
+{
+  "name": "Angular-app-git",
+  "description": "get users git repositories",
+  "main": "index.html",
+  "authors": [
+    "Boris"
+  ],
+  "license": "ISC",
+  "keywords": [
+    "angular",
+    "app",
+    "git"
+  ],
+  "homepage": "https://github.com/FuRa1/angular-app-git",
+  "moduleType": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.2.0",
+    "bootstrap": "~3.3.6",
+    "angular-mocks": "~1.4.9",
+    "angular": "angularjs#~1.4.9",
+    "angular-ui-router": "~0.2.17",
+    "ngstorage": "~0.3.10",
+    "lodash": "4.0.1"
+  }
+}
