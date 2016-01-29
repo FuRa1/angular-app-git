@@ -12,23 +12,23 @@
             $stateProvider
                 .state('repos', {
                     url: "/repos",
-                    templateUrl: "partials/list.html",
+                    templateUrl: "app/partials/list.html",
                     controller: 'RepoListCtrl'
                 })
                 .state('detailed', {
                     url: "/detailed/:user/:repo",
-                    templateUrl: "partials/detail.html",
+                    templateUrl: "app/partials/detail.html",
                     controller: 'RepoDetailCtrl'
                 })
 
-                .state('favorits', {
-                    url: "/favorits",
-                    templateUrl: "partials/fav-list.html",
+                .state('favorites', {
+                    url: "/favorites",
+                    templateUrl: "app/partials/fav-list.html",
                     controller: 'RepoFavoriteCtrl'
                 })
                 .state('contact', {
                     url: "/contact",
-                    templateUrl: "partials/contact.html"
+                    templateUrl: "app/partials/contact.html"
                 });
 
             $urlRouterProvider.otherwise('/repos');
