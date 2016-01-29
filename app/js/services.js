@@ -21,7 +21,6 @@
         };
 
         if (!_.isArray($localStorage.favoriteRepositories)) {
-            console.log("lodash array create");
             $localStorage.favoriteRepositories = [];
         }
 
@@ -59,23 +58,25 @@
 
         function setFavoriteRepositories(repo) {
 
-            console.log("init " + repo.id);
-
             var id = repo.id;
+            var favorites = $localStorage.favoriteRepositories;
 
-            if ($localStorage.favoriteRepositories.length === 0) {
-                $localStorage.favoriteRepositories.push(repo);
-                console.log(id + " added")
+            if (favorites.length === 0) {
+                favorites.push(repo);
+                console.log("Repository id: "+ id + " ADDED to favorites");
             } else {
-                for (var i = $localStorage.favoriteRepositories.length - 1; i >= 0; i--) {
-                    console.log(i);
-                    if ($localStorage.favoriteRepositories[i].id === repo.id) {
-                        $localStorage.favoriteRepositories.splice(i, 1);
-                        console.log(id + " removed");
+
+                for (var i = favorites.length - 1; i >= 0; i--) {
+                    if (favorites[i].id === id) {
+                        favorites.splice(i, 1);
+                        $localStorage.favoriteRepositories = favorites;
+                        console.log("Repository id: "+ id + " DELETED from favorites");
                         break;
-                    } else if (i === $localStorage.favoriteRepositories.length - 1) {
-                        $localStorage.favoriteRepositories.push(repo);
-                        console.log(id + " added");
+                    }
+                    if (i === 0) {
+                        favorites.push(repo);
+                        $localStorage.favoriteRepositories = favorites;
+                        console.log("Repository id: "+ id + " ADDED to favorites");
                         break;
                     }
                 }
@@ -96,7 +97,6 @@
     }
 
     /*
-
      added: function (name) {
      var ad = this;
      console.log("services");
